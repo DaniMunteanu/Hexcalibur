@@ -107,3 +107,6 @@ rotation = 4.18879
 [node name="Cultist6" parent="Cultists" instance=ExtResource("4_n6ghc")]
 position = Vector2(176, 109)
 rotation = 5.23599
+
+[node name="RespawnPoint" type="Marker2D" parent="."]
+position = Vector2(560, 204)

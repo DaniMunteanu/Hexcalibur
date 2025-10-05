@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bw5bvyj3a4clt"]
+[gd_scene load_steps=11 format=3 uid="uid://bw5bvyj3a4clt"]
 
 [ext_resource type="Texture2D" uid="uid://d34pmp832wu7f" path="res://Sprites/Monster.png" id="1_16xur"]
 [ext_resource type="Script" path="res://monster.gd" id="1_nm6jh"]
@@ -6,10 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://dayw0x1d2hd3j" path="res://ElementsUI/MonsterHPBar.tscn" id="2_h3epq"]
 [ext_resource type="Script" path="res://Hurtbox.gd" id="4_aqyi8"]
 [ext_resource type="Script" path="res://Hitbox.gd" id="5_qs0qc"]
+[ext_resource type="Script" path="res://Health.gd" id="7_o0kqj"]
 
 [sub_resource type="Animation" id="Animation_k30rp"]
 resource_name = "MeleeAttack"
-length = 3.4
+length = 3.5
 step = 0.0
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -102,14 +103,17 @@ tracks/7/path = NodePath(".")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(2.5, 3.4),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(2.5, 3.4, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [],
 "method": &"lock_in"
 }, {
 "args": [],
 "method": &"lock_out"
+}, {
+"args": [],
+"method": &"start_attack_timer"
 }]
 }
 tracks/8/type = "value"
@@ -283,6 +287,7 @@ hframes = 2
 vframes = 5
 
 [node name="Monster" type="Sprite2D" parent="."]
+z_index = 3
 position = Vector2(12, 4)
 texture = ExtResource("1_16xur")
 hframes = 2
@@ -313,4 +318,20 @@ script = ExtResource("5_qs0qc")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
 
+[node name="Health" type="Node" parent="."]
+script = ExtResource("7_o0kqj")
+max_health = 100
+current_health = 100
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="received_damage" from="Hurtbox" to="Health" method="_on_hurtbox_received_damage"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

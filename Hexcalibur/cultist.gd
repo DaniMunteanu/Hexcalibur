@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @onready var health: Health = $Health
 @onready var cultist_hp_bar: TextureProgressBar = $CultistHPBar
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func init_health_bar():
 	cultist_hp_bar.max_value = health.max_health
@@ -9,6 +10,7 @@ func init_health_bar():
 	
 func _update_health_bar(diff: int):
 	cultist_hp_bar.value = health.current_health
+	animation_player.play("Hit")
 	
 func _ready() -> void:
 	init_health_bar()

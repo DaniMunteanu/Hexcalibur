@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://ba85ukyoa55vl"]
+[gd_scene load_steps=13 format=3 uid="uid://ba85ukyoa55vl"]
 
 [ext_resource type="Texture2D" uid="uid://dof0cjc0m1c7w" path="res://Sprites/Sword.png" id="1_g4dm0"]
+[ext_resource type="Script" path="res://sword.gd" id="1_hu1dt"]
 [ext_resource type="Script" path="res://Hitbox.gd" id="2_qghwj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tj33o"]
@@ -9,7 +10,7 @@ height = 24.0
 
 [sub_resource type="Animation" id="Animation_gdnrr"]
 resource_name = "Attack1"
-length = 0.5
+length = 0.25
 loop_mode = 2
 step = 0.0
 tracks/0/type = "value"
@@ -31,10 +32,10 @@ tracks/1/path = NodePath(".:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-1.0472, 1.0472]
+"values": [1.0472, 2.0944]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -109,7 +110,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.001),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-1.0472, 0.0]
+"values": [1.5708, 0.0]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -138,7 +139,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_6hlf2"]
 resource_name = "Attack2"
-length = 0.5
+length = 0.25
 loop_mode = 2
 step = 0.0
 tracks/0/type = "value"
@@ -160,10 +161,10 @@ tracks/1/path = NodePath(".:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-1.0472, 1.0472]
+"values": [1.0472, 2.0944]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -204,7 +205,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_xj03l"]
 resource_name = "Attack3"
-length = 0.5
+length = 0.25
 loop_mode = 2
 step = 0.0
 tracks/0/type = "value"
@@ -226,10 +227,10 @@ tracks/1/path = NodePath(".:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-1.0472, 1.0472]
+"values": [1.0472, 2.0944]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -270,7 +271,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_lkhit"]
 resource_name = "Attack4"
-length = 0.5
+length = 0.25
 loop_mode = 2
 step = 0.0
 tracks/0/type = "value"
@@ -292,10 +293,10 @@ tracks/1/path = NodePath(".:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-1.0472, 1.0472]
+"values": [1.0472, 2.0944]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -336,7 +337,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_g654n"]
 resource_name = "Attack5"
-length = 0.5
+length = 0.25
 loop_mode = 2
 step = 0.0
 tracks/0/type = "value"
@@ -358,10 +359,10 @@ tracks/1/path = NodePath(".:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-1.0472, 1.0472]
+"values": [1.0472, 2.0944]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -402,7 +403,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_1aqtm"]
 resource_name = "Attack6"
-length = 0.5
+length = 0.25
 loop_mode = 2
 step = 0.0
 tracks/0/type = "value"
@@ -424,10 +425,10 @@ tracks/1/path = NodePath(".:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-1.0472, 1.0472]
+"values": [1.0472, 2.0944]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -479,7 +480,8 @@ _data = {
 
 [node name="Sword" type="Node2D"]
 visible = false
-rotation = -1.0472
+rotation = 1.5708
+script = ExtResource("1_hu1dt")
 
 [node name="Sword" type="Sprite2D" parent="."]
 texture = ExtResource("1_g4dm0")
@@ -499,3 +501,5 @@ script = ExtResource("2_qghwj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(0, -23)
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

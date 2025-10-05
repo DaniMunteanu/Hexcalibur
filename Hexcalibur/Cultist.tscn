@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://drh4010a05go7"]
+
+[ext_resource type="Texture2D" uid="uid://bwknn47urs03d" path="res://Sprites/Cultist.png" id="1_ktixy"]
+
+[node name="Cultist" type="CharacterBody2D"]
+z_index = 1
+
+[node name="Cultist" type="Sprite2D" parent="."]
+texture = ExtResource("1_ktixy")

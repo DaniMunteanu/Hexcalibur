@@ -1,7 +1,5 @@
 extends CharacterBody2D
 
-@onready var monster_pivot: Marker2D = $MonsterPivot
-
 const SPEED = 200.0
 
 var is_alive : bool = true
@@ -14,8 +12,6 @@ func update_movement():
 	
 func update_orientation():
 	look_at(get_global_mouse_position())
-	monster_pivot.rotation -= rotation
-	monster_pivot.position = Vector2(0,20)
 	
 func _physics_process(delta: float) -> void:
 	if is_alive:

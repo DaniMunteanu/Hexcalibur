@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://bmoiexwkuhvo7"]
+[gd_scene load_steps=7 format=3 uid="uid://bmoiexwkuhvo7"]
 
 [ext_resource type="Texture2D" uid="uid://88wa4w3vry1b" path="res://Sprites/Player.png" id="1_gw8v1"]
 [ext_resource type="Script" path="res://player.gd" id="1_lmckc"]
 [ext_resource type="PackedScene" uid="uid://bug32rfvpl1fr" path="res://ElementsUI/SwordDisplay.tscn" id="2_vxgdk"]
+[ext_resource type="Script" path="res://Hurtbox.gd" id="4_drnyh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6nhuu"]
+radius = 19.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5pdf3"]
+radius = 19.0263
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
@@ -22,5 +29,15 @@ limit_bottom = 360
 
 [node name="SwordDisplay" parent="Camera2D/CanvasLayer" instance=ExtResource("2_vxgdk")]
 
-[node name="MonsterPivot" type="Marker2D" parent="."]
-position = Vector2(0, 20)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_6nhuu")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("4_drnyh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_5pdf3")

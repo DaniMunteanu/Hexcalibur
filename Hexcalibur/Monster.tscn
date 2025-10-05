@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bw5bvyj3a4clt"]
+[gd_scene load_steps=10 format=3 uid="uid://bw5bvyj3a4clt"]
 
 [ext_resource type="Texture2D" uid="uid://d34pmp832wu7f" path="res://Sprites/Monster.png" id="1_16xur"]
 [ext_resource type="Script" path="res://monster.gd" id="1_nm6jh"]
 [ext_resource type="Texture2D" uid="uid://dfrbmbiqqog7e" path="res://Sprites/MonsterAttackTrail.png" id="1_wyb0h"]
+[ext_resource type="PackedScene" uid="uid://dayw0x1d2hd3j" path="res://ElementsUI/MonsterHPBar.tscn" id="2_h3epq"]
+[ext_resource type="Script" path="res://Hurtbox.gd" id="4_aqyi8"]
+[ext_resource type="Script" path="res://Hitbox.gd" id="5_qs0qc"]
 
 [sub_resource type="Animation" id="Animation_k30rp"]
 resource_name = "MeleeAttack"
@@ -109,6 +112,30 @@ tracks/7/keys = {
 "method": &"lock_out"
 }]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Hitbox/CollisionPolygon2D:polygon")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 2.5, 2.6, 3.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(), PackedVector2Array(36, -23, 29, -8, 36, 7, 36, 9, 28, 25, 4, 25, -3, 40, 4, 55, 28, 55, 36, 39, 60, 39, 67, 24, 60, 9, 60, 7, 67, -8, 60, -23), PackedVector2Array(36, -23, 29, -8, 36, 7, 36, 9, 28, 25, 4, 25, -3, 40, 4, 55, 28, 55, 36, 71, 60, 71, 68, 55, 92, 55, 99, 40, 92, 25, 92, 23, 99, 8, 92, -7, 68, -7, 60, -23), PackedVector2Array()]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Hitbox/CollisionPolygon2D:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(2.5, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(32, 16), Vector2(64, 32), Vector2(96, 48), Vector2(128, 64), Vector2(160, 80), Vector2(192, 96), Vector2(224, 112), Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_hscos"]
 length = 0.001
@@ -196,6 +223,42 @@ tracks/6/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Hurtbox/CollisionPolygon2D:polygon")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(4, -39, -4, -23, -28, -23, -35, -8, -28, 8, -36, 24, -28, 39, -4, 39, 4, 23, 28, 23, 35, 8, 28, -8, 36, -24, 28, -39)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Hitbox/CollisionPolygon2D:polygon")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array()]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Hitbox/CollisionPolygon2D:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eua0u"]
 _data = {
@@ -205,6 +268,12 @@ _data = {
 
 [node name="Monster" type="CharacterBody2D"]
 script = ExtResource("1_nm6jh")
+
+[node name="MonsterHPBar" parent="." instance=ExtResource("2_h3epq")]
+offset_left = -76.0
+offset_top = -80.5
+offset_right = 60.0
+offset_bottom = 48.5
 
 [node name="MonsterAttackTrail" type="Sprite2D" parent="."]
 visible = false
@@ -224,5 +293,24 @@ libraries = {
 "": SubResource("AnimationLibrary_eua0u")
 }
 
-[node name="MonsterEye" type="Marker2D" parent="."]
-position = Vector2(32, 15)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(4, -39, -4, -23, -28, -23, -35, -8, -27, 7, -27, 9, -35, 24, -28, 39, -4, 39, 9, 43, 21, 41, 38, 11, 52, -6, 52, -10, 28, -39)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("4_aqyi8")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hurtbox"]
+polygon = PackedVector2Array(4, -39, -4, -23, -28, -23, -35, -8, -28, 8, -36, 24, -28, 39, -4, 39, 4, 23, 28, 23, 35, 8, 28, -8, 36, -24, 28, -39)
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("5_qs0qc")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

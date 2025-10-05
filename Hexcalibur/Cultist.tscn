@@ -1,9 +1,62 @@
-[gd_scene load_steps=2 format=3 uid="uid://drh4010a05go7"]
+[gd_scene load_steps=10 format=3 uid="uid://drh4010a05go7"]
 
+[ext_resource type="Script" path="res://cultist.gd" id="1_ff3p4"]
 [ext_resource type="Texture2D" uid="uid://bwknn47urs03d" path="res://Sprites/Cultist.png" id="1_ktixy"]
+[ext_resource type="Script" path="res://Hurtbox.gd" id="2_41dl3"]
+[ext_resource type="PackedScene" uid="uid://2nlvktmfgrr3" path="res://ElementsUI/CultistHPBar.tscn" id="3_m6lki"]
+[ext_resource type="Script" path="res://Health.gd" id="5_yrjgo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w55se"]
+radius = 19.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rflnr"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_76chy"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c03la"]
+radius = 19.0263
 
 [node name="Cultist" type="CharacterBody2D"]
 z_index = 1
+script = ExtResource("1_ff3p4")
 
 [node name="Cultist" type="Sprite2D" parent="."]
 texture = ExtResource("1_ktixy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_w55se")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(19, 12)
+shape = SubResource("CircleShape2D_rflnr")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-19, 12)
+shape = SubResource("CircleShape2D_76chy")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("2_41dl3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_c03la")
+
+[node name="CultistHPBar" parent="." instance=ExtResource("3_m6lki")]
+offset_left = -13.0
+offset_top = -27.5
+offset_right = 13.0
+offset_bottom = -20.5
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("5_yrjgo")
+max_health = 25
+current_health = 25
+
+[connection signal="received_damage" from="Hurtbox" to="Health" method="_on_hurtbox_received_damage"]

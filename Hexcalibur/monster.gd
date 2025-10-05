@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
 @onready var player = get_parent().get_node("Player")
-@onready var monster_eye: Marker2D = $MonsterEye
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var hitbox: Hitbox = $Hitbox
 
 var locked_in : bool = false
 
@@ -15,9 +15,8 @@ func lock_out():
 	
 func follow_player():
 	if locked_in == false:
-		
-		look_at(player.monster_pivot.global_position)
-		
+		rotation_degrees = rad_to_deg(global_position.angle_to_point(player.global_position)) - 30
+	
 func melee_attack():
 	animation_player.play("MeleeAttack")
 	
@@ -27,4 +26,6 @@ func _ready() -> void:
 	
 func _physics_process(delta: float) -> void:
 	follow_player()
-	
+
+func _on_hitbox_area_entered(hurtbox: Hurtbox) -> void:
+	hurtbox.take_damage(5)

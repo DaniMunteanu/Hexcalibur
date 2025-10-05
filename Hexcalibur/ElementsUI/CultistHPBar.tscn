@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://2nlvktmfgrr3"]
+
+[ext_resource type="Texture2D" uid="uid://clwsw85o4ifo4" path="res://Sprites/CultistHPBarBorder.png" id="1_ek5e7"]
+[ext_resource type="Texture2D" uid="uid://crtnfm1wl6r0j" path="res://Sprites/CultistHPBarFill.png" id="2_4j0ny"]
+
+[sub_resource type="GDScript" id="GDScript_dy2ob"]
+script/source = "extends TextureProgressBar
+"
+
+[node name="CultistHPBar" type="TextureProgressBar"]
+anchors_preset = -1
+anchor_right = 0.040625
+anchor_bottom = 0.0194444
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 25.0
+value = 25.0
+texture_under = ExtResource("1_ek5e7")
+texture_progress = ExtResource("2_4j0ny")
+script = SubResource("GDScript_dy2ob")

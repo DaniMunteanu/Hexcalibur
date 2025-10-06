@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://duwunm5i5ekis"]
+
+[ext_resource type="Script" path="res://ElementsUI/hourglass.gd" id="1_7mkg1"]
+[ext_resource type="Texture2D" uid="uid://b4thsxqtne56u" path="res://Sprites/HourglassBorder.png" id="1_vacdv"]
+[ext_resource type="Texture2D" uid="uid://6vnyig120hsv" path="res://Sprites/HourglassUnder.png" id="3_6ao3v"]
+[ext_resource type="Texture2D" uid="uid://cl5gwrtd15qb8" path="res://Sprites/HourglassFill.png" id="4_5i0f2"]
+
+[node name="Hourglass" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 59.0
+offset_bottom = 94.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7mkg1")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_vacdv")
+
+[node name="TextureProgressBarTop" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 7.0
+offset_right = 52.0
+offset_bottom = 47.0
+fill_mode = 3
+texture_under = ExtResource("3_6ao3v")
+texture_progress = ExtResource("4_5i0f2")
+
+[node name="TextureProgressBarBottom" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 47.0
+offset_right = 52.0
+offset_bottom = 87.0
+fill_mode = 3
+texture_under = ExtResource("3_6ao3v")
+texture_progress = ExtResource("4_5i0f2")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 90.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

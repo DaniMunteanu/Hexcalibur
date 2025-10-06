@@ -15,3 +15,6 @@ func _update_health_bar(diff: int):
 func _ready() -> void:
 	init_health_bar()
 	health.health_changed.connect(_update_health_bar)
+
+func _on_health_health_depleted() -> void:
+	Global.game_over.emit()

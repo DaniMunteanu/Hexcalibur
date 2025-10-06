@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bw5bvyj3a4clt"]
+[gd_scene load_steps=12 format=3 uid="uid://bw5bvyj3a4clt"]
 
 [ext_resource type="Texture2D" uid="uid://d34pmp832wu7f" path="res://Sprites/Monster.png" id="1_16xur"]
 [ext_resource type="Script" path="res://monster.gd" id="1_nm6jh"]
@@ -103,11 +103,14 @@ tracks/7/path = NodePath(".")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(2.5, 3.4, 3.5),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(2.5, 2.6, 3.4, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
 "args": [],
 "method": &"lock_in"
+}, {
+"args": [],
+"method": &"apply_camera_shake"
 }, {
 "args": [],
 "method": &"lock_out"
@@ -264,10 +267,45 @@ tracks/9/keys = {
 "values": [Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_av68s"]
+resource_name = "RangedAttack"
+length = 3.5
+step = 0.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Monster:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 3, 0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 3.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"shoot_projectile"
+}, {
+"args": [],
+"method": &"start_attack_timer"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eua0u"]
 _data = {
 "MeleeAttack": SubResource("Animation_k30rp"),
-"RESET": SubResource("Animation_hscos")
+"RESET": SubResource("Animation_hscos"),
+"RangedAttack": SubResource("Animation_av68s")
 }
 
 [node name="Monster" type="CharacterBody2D"]
@@ -312,6 +350,7 @@ script = ExtResource("4_aqyi8")
 polygon = PackedVector2Array(4, -39, -4, -23, -28, -23, -35, -8, -28, 8, -36, 24, -28, 39, -4, 39, 4, 23, 28, 23, 35, 8, 28, -8, 36, -24, 28, -39)
 
 [node name="Hitbox" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_qs0qc")
@@ -320,8 +359,8 @@ script = ExtResource("5_qs0qc")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("7_o0kqj")
-max_health = 100
-current_health = 100
+max_health = 150.0
+current_health = 150.0
 
 [node name="InvincibilityTimer" type="Timer" parent="."]
 one_shot = true
@@ -333,5 +372,6 @@ autostart = true
 
 [connection signal="received_damage" from="Hurtbox" to="Health" method="_on_hurtbox_received_damage"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

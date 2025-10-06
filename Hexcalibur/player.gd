@@ -8,7 +8,6 @@ extends CharacterBody2D
 @onready var invincibility_timer: Timer = $InvincibilityTimer
 
 const SPEED = 200.0
-
 var is_alive : bool = true
 
 func update_movement():
@@ -33,7 +32,7 @@ func respawn():
 	animation_player.play("Hit")
 
 func _physics_process(delta: float) -> void:
-	if is_alive:
+	if is_alive && Global.game_finished == false:
 		update_movement()
 		update_orientation()
 

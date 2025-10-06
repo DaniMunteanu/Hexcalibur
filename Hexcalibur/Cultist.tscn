@@ -93,8 +93,8 @@ offset_bottom = -20.5
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("5_yrjgo")
-max_health = 25
-current_health = 25
+max_health = 3.0
+current_health = 3.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -102,3 +102,4 @@ libraries = {
 }
 
 [connection signal="received_damage" from="Hurtbox" to="Health" method="_on_hurtbox_received_damage"]
+[connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]

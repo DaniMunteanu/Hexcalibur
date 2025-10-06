@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cefupoalmbq6k"]
+
+[ext_resource type="Texture2D" uid="uid://spus25cyocc2" path="res://Sprites/MonsterProjectile.png" id="1_8raww"]
+[ext_resource type="Script" path="res://monster_projectile.gd" id="1_e7hlb"]
+[ext_resource type="Script" path="res://Hitbox.gd" id="2_nfetk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1jkwy"]
+radius = 6.0
+
+[node name="MonsterProjectile" type="Node2D"]
+script = ExtResource("1_e7hlb")
+
+[node name="MonsterProjectile" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_8raww")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_nfetk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_1jkwy")
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

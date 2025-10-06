@@ -11,12 +11,14 @@ config_version=5
 [application]
 
 config/name="Hexcalibur"
+run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://Global.gd"
+TransitionScreen="*res://ElementsUI/TransitionScreen.tscn"
 
 [display]
 
@@ -57,4 +59,6 @@ attack={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 2d/snap/snap_2d_transforms_to_pixel=true

@@ -5,8 +5,8 @@ extends Node
 signal health_changed(diff: int)
 signal health_depleted
 
-@export var max_health: int
-@export var current_health: int
+@export var max_health: float
+@export var current_health: float
 
 func set_current_health(value: int):
 	var clamped_value = clampi(value,0,max_health)
